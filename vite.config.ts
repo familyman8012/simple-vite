@@ -49,6 +49,12 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       // Pages 플러그인 추가
       Pages({
         dirs: 'src/pages',
+        importMode: (path) => {
+          if (path.includes('admin')) {
+            return 'sync'; // admin 페이지는 동적 로드하지 않고 정적 로드
+          }
+          return 'async'; // 나머지는 동적 로드
+        },
         extensions: ['tsx'],
         routeStyle: 'next',
         // debug: true,
